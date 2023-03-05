@@ -5,6 +5,7 @@ namespace Kambo\DuckDB\Tests\Unit;
 use Kambo\DuckDB\Connection;
 use Kambo\DuckDB\Database;
 use PHPUnit\Framework\TestCase;
+use Kambo\DuckDB\Type;
 
 final class ResultTest extends TestCase
 {
@@ -34,6 +35,16 @@ final class ResultTest extends TestCase
         $this->assertEquals(3, $result->rowCount());
     }
 
+    public function testGetColumnType()
+    {
+        $this->conn->query('CREATE TABLE integers(i INTEGER, j INTEGER);');
+        $this->conn->query('INSERT INTO integers VALUES (3,4), (5,6), (7, NULL) ');
+
+        $result = $this->conn->query('SELECT * FROM integers;');
+
+        $this->assertSame(Type::INTEGER, $result->getColumnType(0));
+    }
+
     public function testToArray()
     {
         $this->conn->query('CREATE TABLE integers(i INTEGER, j INTEGER);');
@@ -41,18 +52,18 @@ final class ResultTest extends TestCase
 
         $result = $this->conn->query('SELECT * FROM integers;');
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 [
-                    '3',
-                    '4',
+                    3,
+                    4,
                 ],
                 [
-                    '5',
-                    '6',
+                    5,
+                    6,
                 ],
                 [
-                    '7',
+                    7,
                     null,
                 ],
             ],
