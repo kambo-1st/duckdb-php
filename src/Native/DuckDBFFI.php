@@ -6,8 +6,11 @@ use FFI;
 use FFI\CData;
 use Kambo\DuckDB\Exception\MissingLibraryException;
 use Kambo\DuckDB\Exception\NotImplementedException;
+use InvalidArgumentException;
 
 use function file_get_contents;
+use function in_array;
+use function sprintf;
 
 /**
  * Thin wrapper around DuckDB API, represents low level API for duck DB.
@@ -134,6 +137,103 @@ final class DuckDBFFI
     public function duckDBError()
     {
         return $this->fii->DuckDBError;
+    }
+
+    /**
+     * Get a complete enums values from the given C enum.
+     *
+     * @return array
+     */
+    public function duckdb_type_enum_get(): array
+    {
+        $possibleEnums = [
+            'DUCKDB_TYPE_INVALID',
+            'DUCKDB_TYPE_BOOLEAN',
+            'DUCKDB_TYPE_TINYINT',
+            'DUCKDB_TYPE_SMALLINT',
+            'DUCKDB_TYPE_INTEGER',
+            'DUCKDB_TYPE_BIGINT',
+            'DUCKDB_TYPE_UTINYINT',
+            'DUCKDB_TYPE_USMALLINT',
+            'DUCKDB_TYPE_UINTEGER',
+            'DUCKDB_TYPE_UBIGINT',
+            'DUCKDB_TYPE_FLOAT',
+            'DUCKDB_TYPE_DOUBLE',
+            'DUCKDB_TYPE_TIMESTAMP',
+            'DUCKDB_TYPE_DATE',
+            'DUCKDB_TYPE_TIME',
+            'DUCKDB_TYPE_INTERVAL',
+            'DUCKDB_TYPE_HUGEINT',
+            'DUCKDB_TYPE_VARCHAR',
+            'DUCKDB_TYPE_BLOB',
+            'DUCKDB_TYPE_DECIMAL',
+            'DUCKDB_TYPE_TIMESTAMP_S',
+            'DUCKDB_TYPE_TIMESTAMP_MS',
+            'DUCKDB_TYPE_TIMESTAMP_NS',
+            'DUCKDB_TYPE_ENUM',
+            'DUCKDB_TYPE_LIST',
+            'DUCKDB_TYPE_STRUCT',
+            'DUCKDB_TYPE_MAP',
+            'DUCKDB_TYPE_UUID',
+            'DUCKDB_TYPE_UNION',
+            'DUCKDB_TYPE_BIT',
+        ];
+
+        $result = [];
+        foreach ($possibleEnums as $enumName) {
+            $result[$enumName] = $this->fii->{$enumName};
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get enum value from the given C enum.
+     *
+     * @param string $enumName
+     *
+     * @return mixed
+     */
+    public function duckdb_type_enum(string $enumName)
+    {
+        $possibleEnums = [
+            'DUCKDB_TYPE_INVALID',
+            'DUCKDB_TYPE_BOOLEAN',
+            'DUCKDB_TYPE_TINYINT',
+            'DUCKDB_TYPE_SMALLINT',
+            'DUCKDB_TYPE_INTEGER',
+            'DUCKDB_TYPE_BIGINT',
+            'DUCKDB_TYPE_UTINYINT',
+            'DUCKDB_TYPE_USMALLINT',
+            'DUCKDB_TYPE_UINTEGER',
+            'DUCKDB_TYPE_UBIGINT',
+            'DUCKDB_TYPE_FLOAT',
+            'DUCKDB_TYPE_DOUBLE',
+            'DUCKDB_TYPE_TIMESTAMP',
+            'DUCKDB_TYPE_DATE',
+            'DUCKDB_TYPE_TIME',
+            'DUCKDB_TYPE_INTERVAL',
+            'DUCKDB_TYPE_HUGEINT',
+            'DUCKDB_TYPE_VARCHAR',
+            'DUCKDB_TYPE_BLOB',
+            'DUCKDB_TYPE_DECIMAL',
+            'DUCKDB_TYPE_TIMESTAMP_S',
+            'DUCKDB_TYPE_TIMESTAMP_MS',
+            'DUCKDB_TYPE_TIMESTAMP_NS',
+            'DUCKDB_TYPE_ENUM',
+            'DUCKDB_TYPE_LIST',
+            'DUCKDB_TYPE_STRUCT',
+            'DUCKDB_TYPE_MAP',
+            'DUCKDB_TYPE_UUID',
+            'DUCKDB_TYPE_UNION',
+            'DUCKDB_TYPE_BIT',
+        ];
+
+        if (!in_array($enumName, $possibleEnums)) {
+            throw new InvalidArgumentException(sprintf('Invalid enum name "%s".', $enumName));
+        }
+
+        return $this->fii->{$enumName};
     }
 
     /**
@@ -503,5 +603,150 @@ final class DuckDBFFI
     public function duckdb_appender_error(CData $appenderCData): ?string
     {
         return $this->fii->duckdb_appender_error($appenderCData);
+    }
+
+    /**
+     * Returns the column type of the specified column.
+     *
+     * @param CData $addr
+     * @param int   $int
+     *
+     * @return mixed
+     */
+    public function duckdb_column_type(CData $addr, int $int): int
+    {
+        return $this->fii->duckdb_column_type($addr, $int);
+    }
+
+    /**
+     * @param CData $addr
+     * @param int   $column
+     * @param int   $row
+     *
+     * @return int
+     */
+    public function duckdb_value_int32(CData $addr, int $column, int $row): int
+    {
+        return $this->fii->duckdb_value_int32($addr, $column, $row);
+    }
+
+    /**
+     * @param CData $addr
+     * @param int   $column
+     * @param int   $row
+     *
+     * @return bool
+     */
+    public function duckdb_value_is_null(CData $addr, int $column, int $row): bool
+    {
+        return $this->fii->duckdb_value_is_null($addr, $column, $row);
+    }
+
+    /**
+     * @param CData $addr
+     * @param int   $column
+     * @param int   $row
+     *
+     * @return bool
+     */
+    public function duckdb_value_boolean(CData $addr, int $column, int $row): bool
+    {
+        return $this->fii->duckdb_value_boolean($addr, $column, $row);
+    }
+
+    /**
+     * @param CData $addr
+     * @param int   $column
+     * @param int   $row
+     *
+     * @return mixed
+     */
+    public function duckdb_value_int64(CData $addr, int $column, int $row)
+    {
+        return $this->fii->duckdb_value_int64($addr, $column, $row);
+    }
+
+    /**
+     * @param CData $addr
+     * @param int   $column
+     * @param int   $row
+     *
+     * @return mixed
+     */
+    public function duckdb_value_float(CData $addr, int $column, int $row)
+    {
+        return $this->fii->duckdb_value_float($addr, $column, $row);
+    }
+
+    /**
+     * @param CData $addr
+     * @param int   $column
+     * @param int   $row
+     *
+     * @return mixed
+     */
+    public function duckdb_value_uint32(CData $addr, int $column, int $row)
+    {
+        return $this->fii->duckdb_value_uint32($addr, $column, $row);
+    }
+
+    /**
+     * @param CData $addr
+     * @param int   $column
+     * @param int   $row
+     *
+     * @return mixed
+     */
+    public function duckdb_value_int8(CData $addr, int $column, int $row)
+    {
+        return $this->fii->duckdb_value_int8($addr, $column, $row);
+    }
+
+    /**
+     * @param CData $addr
+     * @param int   $column
+     * @param int   $row
+     *
+     * @return mixed
+     */
+    public function duckdb_value_uint8(CData $addr, int $column, int $row)
+    {
+        return $this->fii->duckdb_value_uint8($addr, $column, $row);
+    }
+
+    /**
+     * @param CData $addr
+     * @param int   $column
+     * @param int   $row
+     *
+     * @return mixed
+     */
+    public function duckdb_value_int16(CData $addr, int $column, int $row)
+    {
+        return $this->fii->duckdb_value_int16($addr, $column, $row);
+    }
+
+    /**
+     * @param CData $addr
+     * @param int   $column
+     * @param int   $row
+     *
+     * @return mixed
+     */
+    public function duckdb_value_uint16(CData $addr, int $column, int $row)
+    {
+        return $this->fii->duckdb_value_uint16($addr, $column, $row);
+    }
+
+    /**
+     * @param CData $addr
+     * @param int   $column
+     * @param int   $row
+     *
+     * @return mixed
+     */
+    public function duckdb_value_double(CData $addr, int $column, int $row)
+    {
+        return $this->fii->duckdb_value_double($addr, $column, $row);
     }
 }
