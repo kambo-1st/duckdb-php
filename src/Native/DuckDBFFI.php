@@ -297,4 +297,211 @@ final class DuckDBFFI
     {
         $this->fii->duckdb_destroy_config($config);
     }
+
+    /**
+     * Creates an appender object.
+     *
+     * @param CData       $connection The connection context to create the appender in.
+     * @param string|null $schema The schema of the table to append to, or `nullptr` for the default schema.
+     * @param string      $table The table name to append to.
+     * @param CData       $appender The resulting appender object.
+     *
+     * @return int `DuckDBSuccess` on success or `DuckDBError` on failure.
+     */
+    public function duckdb_appender_create(CData $connection, ?string $schema, string $table, CData $appender): int
+    {
+        return $this->fii->duckdb_appender_create($connection, $schema, $table, $appender);
+    }
+
+    /**
+     * Append a boolean value to the appender.
+     *
+     * @param CData $appenderCData The appender to append to.
+     * @param bool  $value         The boolean value to append.
+     *
+     * @return int The status code of the operation.
+     */
+    public function duckdb_append_bool(CData $appenderCData, bool $value): int
+    {
+        return $this->fii->duckdb_append_bool($appenderCData, $value);
+    }
+
+    /**
+     * Append an 8-bit integer value to the appender.
+     *
+     * @param CData $appenderCData The appender to append to.
+     * @param int   $value         The 8-bit integer value to append.
+     *
+     * @return int The status code of the operation.
+     */
+    public function duckdb_append_int8(CData $appenderCData, int $value): int
+    {
+        return $this->fii->duckdb_append_int8($appenderCData, $value);
+    }
+
+    /**
+     * Append a 16-bit integer value to the appender.
+     *
+     * @param CData $appenderCData The appender to append to.
+     * @param int   $value         The 16-bit integer value to append.
+     *
+     * @return int The status code of the operation.
+     */
+    public function duckdb_append_int16(CData $appenderCData, int $value): int
+    {
+        return $this->fii->duckdb_append_int16($appenderCData, $value);
+    }
+
+    /**
+     * Append a 64-bit integer value to the appender.
+     *
+     * @param CData $appenderCData The appender to append to.
+     * @param int   $value         The 64-bit integer value to append.
+     *
+     * @return int The status code of the operation.
+     */
+    public function duckdb_append_int64(CData $appenderCData, int $value): int
+    {
+        return $this->fii->duckdb_append_int64($appenderCData, $value);
+    }
+
+    /**
+     * Append an int32 value to the appender.
+     *
+     * @param CData $appenderCData
+     * @param int   $value
+     *
+     * @return int
+     */
+    public function duckdb_append_int32(CData $appenderCData, int $value): int
+    {
+        return $this->fii->duckdb_append_int32($appenderCData, $value);
+    }
+
+    /**
+     * Append an unsigned 8-bit integer to the given DuckDB appender.
+     *
+     * @param CData $appenderCData the appender object to append to.
+     * @param int $value the value to append.
+     *
+     * @return int the status code of the operation.
+     */
+    public function duckdb_append_uint8(CData $appenderCData, int $value): int
+    {
+        return $this->fii->duckdb_append_uint8($appenderCData, $value);
+    }
+
+    /**
+     * Append an unsigned 16-bit integer to the given DuckDB appender.
+     *
+     * @param CData $appenderCData the appender object to append to.
+     * @param int $value the value to append.
+     *
+     * @return int the status code of the operation.
+     */
+    public function duckdb_append_uint16(CData $appenderCData, int $value): int
+    {
+        return $this->fii->duckdb_append_uint16($appenderCData, $value);
+    }
+
+    /**
+     * Append an unsigned 32-bit integer to the given DuckDB appender.
+     *
+     * @param CData $appenderCData the appender object to append to.
+     * @param int $value the value to append.
+     *
+     * @return int the status code of the operation.
+     */
+    public function duckdb_append_uint32(CData $appenderCData, int $value): int
+    {
+        return $this->fii->duckdb_append_uint32($appenderCData, $value);
+    }
+
+    /**
+     * Appends a float value to a DuckDB appender.
+     *
+     * @param CData $appenderCData The DuckDB appender to append the value to.
+     * @param float $value The float value to append.
+     *
+     * @return int Returns 0 on success, or a non-zero error code on failure.
+     */
+    public function duckdb_append_float(CData $appenderCData, float $value): int
+    {
+        return $this->fii->duckdb_append_float($appenderCData, $value);
+    }
+
+    /**
+     * Appends a double value to a DuckDB appender.
+     *
+     * @param CData $appenderCData The DuckDB appender to append the value to.
+     * @param float $value The double value to append.
+     *
+     * @return int Returns 0 on success, or a non-zero error code on failure.
+     */
+    public function duckdb_append_double(CData $appenderCData, float $value): int
+    {
+        return $this->fii->duckdb_append_double($appenderCData, $value);
+    }
+
+    /**
+     * Appends a varchar value to a DuckDB appender.
+     *
+     * @param CData $appenderCData The DuckDB appender to append the value to.
+     * @param string $value The double value to append.
+     *
+     * @return int Returns 0 on success, or a non-zero error code on failure.
+     */
+    public function duckdb_append_varchar(CData $appenderCData, string $value): int
+    {
+        return $this->fii->duckdb_append_varchar($appenderCData, $value);
+    }
+
+    /**
+     * Append a NULL value to the appender (of any type).
+     *
+     * @param CData $appenderCData
+     *
+     * @return int
+     */
+    public function duckdb_append_null(CData $appenderCData): int
+    {
+        return $this->fii->duckdb_append_null($appenderCData);
+    }
+
+    /**
+     * Finish the current row of appends. After end_row is called, the next row can be appended.
+     *
+     * @param CData $appenderCData
+     *
+     * @return int
+     */
+    public function duckdb_appender_end_row(CData $appenderCData)
+    {
+        return $this->fii->duckdb_appender_end_row($appenderCData);
+    }
+
+    /**
+     * Close the appender and destroy it. Flushing all intermediate state in the appender to the table,
+     * and de-allocating all memory associated with the appender.
+     *
+     * @param CData $appenderCData
+     *
+     * @return int
+     */
+    public function duckdb_appender_destroy(CData $appenderCData)
+    {
+        return $this->fii->duckdb_appender_destroy($appenderCData);
+    }
+
+    /**
+     * Get the error message of the appender.
+     *
+     * @param CData $appenderCData
+     *
+     * @return string|null
+     */
+    public function duckdb_appender_error(CData $appenderCData): ?string
+    {
+        return $this->fii->duckdb_appender_error($appenderCData);
+    }
 }
