@@ -619,6 +619,19 @@ final class DuckDBFFI
     }
 
     /**
+     * Returns the column type of the specified column.
+     *
+     * @param CData $addr
+     * @param int   $int
+     *
+     * @return string|null
+     */
+    public function duckdb_column_name(CData $addr, int $int): ?string
+    {
+        return $this->fii->duckdb_column_name($addr, $int);
+    }
+
+    /**
      * @param CData $addr
      * @param int   $column
      * @param int   $row
