@@ -71,6 +71,16 @@ final class ResultTest extends TestCase
         );
     }
 
+    public function testGetColumns()
+    {
+        $result = $this->conn->query('SELECT 1 AS col, 2 as col2');
+
+        $this->assertEquals(
+            ['col', 'col2'],
+            $result->getColumns()
+        );
+    }
+
     protected function tearDown(): void
     {
         unset($this->conn);
