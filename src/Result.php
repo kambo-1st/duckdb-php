@@ -66,6 +66,21 @@ final class Result
     }
 
     /**
+     * Get the column name
+     * 
+     * @return array
+     */
+    public function getColumns(): array
+    {
+        $columnCount = $this->columnCount();
+        $values      = [];
+        for ($column = 0; $column < $columnCount; $column++) {
+            $values[$column] = $this->duckDBFFI->duckdb_column_name($this->duckDBFFI->addr($this->CDataQueryResult), $column);
+        }
+        return $values;
+    }
+
+    /**
      * Destruct object
      */
     public function __destruct()
