@@ -67,7 +67,7 @@ final class Result
 
     /**
      * Get the column name
-     * 
+     *
      * @return array
      */
     public function getColumns(): array
@@ -75,7 +75,10 @@ final class Result
         $columnCount = $this->columnCount();
         $values      = [];
         for ($column = 0; $column < $columnCount; $column++) {
-            $values[$column] = $this->duckDBFFI->duckdb_column_name($this->duckDBFFI->addr($this->CDataQueryResult), $column);
+            $values[$column] = $this->duckDBFFI->duckdb_column_name(
+                $this->duckDBFFI->addr($this->CDataQueryResult),
+                $column
+            );
         }
         return $values;
     }
