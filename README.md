@@ -1,5 +1,6 @@
 # DuckDB PHP library
 
+
 ## changes
 
 * Merge Pull Request : https://github.com/kambo-1st/duckdb-php/pull/6
