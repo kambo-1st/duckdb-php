@@ -5,7 +5,7 @@
         "kambo",
         "duckdb"
     ],
-    "homepage": "https://github.com/dancal/duckdb",
+    "homepage": "https://github.com/dancal/duckdb-php",
     "license": "MIT",
     "authors": [
         {
