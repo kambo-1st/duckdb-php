@@ -1,5 +1,9 @@
 # DuckDB PHP library
 
+## changes
+
+* Merge Pull Request : https://github.com/kambo-1st/duckdb-php/pull/6
+
 An unofficial  [DuckDB]( https://duckdb.org/) communication library for PHP.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/kambo/duckdb-php.svg?style=flat-square)](https://packagist.org/packages/kambo/duckdb-php)
