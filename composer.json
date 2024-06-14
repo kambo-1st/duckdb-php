@@ -1,5 +1,5 @@
 {
-    "name": "kambo/duckdb",
+    "name": "dancal/duckdb",
     "description": "A PHP library for communication with DuckDB",
     "keywords": [
         "kambo",
